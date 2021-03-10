@@ -6,6 +6,8 @@ defmodule QuizBuilders do
     end
   end
 
+  alias Mastery.Core.{Template, Question, Quiz}
+
   def build_quiz_with_two_templates(quiz_overrides \\ []) do
     build_quiz(quiz_overrides)
     |> Quiz.add_template(template_fields())
