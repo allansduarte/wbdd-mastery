@@ -1,7 +1,7 @@
 defmodule QuizBuilders do
   defmacro __using__(_options) do
     quote do
-      alias Mastery.Core{Template, Response, Quiz}
+      alias Mastery.Core.{Template, Response, Quiz}
       import QuizBuilders, only: :functions
     end
   end
@@ -19,7 +19,7 @@ defmodule QuizBuilders do
   end
 
   def build_question(overrides \\ []) do
-    quiz_overrides
+    overrides
     |> template_fields()
     |> Template.new()
     |> Question.new()
