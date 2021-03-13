@@ -18,14 +18,6 @@ defmodule Mastery.Boundary.QuizSession do
     )
   end
 
-  def select_question(name) do
-    GenServer.call(via(name), :select_question)
-  end
-
-  def answer_question(name, answer, persistence_fn) do
-    GenServer.call(via(name), {:answer_question, answer, persistence_fn})
-  end
-
   def take_quiz(quiz, email) do
     DynamicSupervisor.start_child(
       Mastery.Supervisor.QuizSession,
@@ -57,6 +49,14 @@ defmodule Mastery.Boundary.QuizSession do
       {quiz.current_question.asked, quiz.last_response.correct},
       {quiz, email}
     }
+  end
+
+  def select_question(name) do
+    GenServer.call(via(name), :select_question)
+  end
+
+  def answer_question(name, answer) do
+    GenServer.call(via(name), {:answer_question, answer})
   end
 
   def via({_title, _email} = name) do
